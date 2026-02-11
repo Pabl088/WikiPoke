@@ -109,4 +109,4 @@ package-lock.json
 docker-compose.override.yml
 docker-compose.*.yml
 
- .idea/
+.idea/
