@@ -17,7 +17,7 @@ function Landing() {
         dispatch(getPokemons());
         dispatch(getTypes());
         dispatch(getAllPokemons());
-    }, [pokemons]);
+    }, [pokemons,dispatch]);
 
 
     return (

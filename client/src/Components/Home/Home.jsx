@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Card from '../Card/Card.jsx';
-import { NavBar } from '../NavBar/NavBar.jsx';
+import {NavBar} from '../NavBar/NavBar.jsx';
 import Pages from '../Pages/Pages.jsx';
-import { orderPokemons, getTypes, getCreates, getAPI, getAllPokemons, updatePage } from '../../Redux/actions.js';
+import {orderPokemons, getTypes, getCreates, getAPI, getAllPokemons, updatePage} from '../../Redux/actions.js';
 import s from './Home.module.css';
 import pokebola from './Images/pokebola.gif';
 
@@ -14,7 +14,7 @@ export default function Home() {
 
     const [page, setPage] = useState(currentPage);
 
-    const [forEachPage, setforEachPage] = useState(12);
+    const [forEachPage] = useState(12);
 
     const dispatch = useDispatch();
 
@@ -26,11 +26,11 @@ export default function Home() {
     useEffect(() => {
         dispatch(getAllPokemons());
         dispatch(getTypes());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         setPage(currentPage);
-    }, [pokemons]);
+    }, [pokemons, currentPage]);
 
     const handleOrders = (e) => {
         dispatch(updatePage(1));
@@ -65,29 +65,30 @@ export default function Home() {
     return (
         <div className={s.Main}>
             <NavBar resetSelects={resetSelects}></NavBar>
-            <div >
+            <div>
                 {
                     pokemons.length ? <div className={s.ContainerButtons}>
-                        <select id="orderName" onChange={handleOrders} className={s.buttons}>
-                            <option value='' selected disabled hidden>ORDENAR POR NOMBRE</option>
-                            <option value='AZ' className={s.select}>A-Z</option>
-                            <option value='ZA' className={s.select}>Z-A</option>
-                        </select>
-                        <select id="orderAttack" onChange={handleOrders} className={s.buttons}>
-                            <option value='' selected disabled hidden>ORDENAR POR ATAQUE</option>
-                            <option value="MIN_MAX" className={s.select}>MENOR ATAQUE</option>
-                            <option value="MAX_MIN" className={s.select}>MAYOR ATAQUE</option>
-                        </select>
-                        <select id="filter" name="filter" onChange={handleTypes} className={s.buttons} >
-                            <option value='' selected disabled hidden>ORDENAR POR TIPO</option>
-                            <option value={'TODOS'} className={s.select}>TODOS</option>
-                            {
-                                types && types.length && types.map((t, i) => <option key={i} value={`${t.nombre}`} className={s.select}>{`${t.nombre.toUpperCase()}`}</option>)
-                            }
-                        </select>
-                        <button onClick={handleClickDB} className={s.buttons}>SOLO CREADOS</button>
-                        <button onClick={handleClickAPI} className={s.buttons}>SOLO ORIGINALES</button>
-                    </div>
+                            <select id="orderName" onChange={handleOrders} className={s.buttons}>
+                                <option value='' selected disabled hidden>ORDENAR POR NOMBRE</option>
+                                <option value='AZ' className={s.select}>A-Z</option>
+                                <option value='ZA' className={s.select}>Z-A</option>
+                            </select>
+                            <select id="orderAttack" onChange={handleOrders} className={s.buttons}>
+                                <option value='' selected disabled hidden>ORDENAR POR ATAQUE</option>
+                                <option value="MIN_MAX" className={s.select}>MENOR ATAQUE</option>
+                                <option value="MAX_MIN" className={s.select}>MAYOR ATAQUE</option>
+                            </select>
+                            <select id="filter" name="filter" onChange={handleTypes} className={s.buttons}>
+                                <option value='' selected disabled hidden>ORDENAR POR TIPO</option>
+                                <option value={'TODOS'} className={s.select}>TODOS</option>
+                                {
+                                    types && types.length && types.map((t, i) => <option key={i} value={`${t.nombre}`}
+                                                                                         className={s.select}>{`${t.nombre.toUpperCase()}`}</option>)
+                                }
+                            </select>
+                            <button onClick={handleClickDB} className={s.buttons}>SOLO CREADOS</button>
+                            <button onClick={handleClickAPI} className={s.buttons}>SOLO ORIGINALES</button>
+                        </div>
                         : null
                 }
                 <div className={s.pages}>
@@ -102,7 +103,7 @@ export default function Home() {
                         </>
                         : !pokemons.nombre ?
                             <div className={s.contNoPokemons}>
-                                <img className={s.NoPokemons} alt="nopokemons" src={pokebola} />
+                                <img className={s.NoPokemons} alt="nopokemons" src={pokebola}/>
                                 <p className={s.text}>NINGUN POKEMON COINCIDE CON LOS FILTROS ESPICIFICADOS</p>
                             </div>
                             : null

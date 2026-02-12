@@ -17,7 +17,7 @@ export default function CardDetail(props) {
         return () => {
             dispatch(cleanDetails());
         };
-    }, []);
+    }, [dispatch, id]);
 
     const handleBack = () => {
         history.goBack();
