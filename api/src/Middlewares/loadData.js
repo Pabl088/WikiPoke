@@ -19,7 +19,7 @@ const loadPokes = async () => {
     if (!typesDB.length) loadTypes();
 
     try {
-        const response = (await axios.get('https://pokeapi.co/api/v2/pokemon?limit=320')).data;
+        const response = (await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1351')).data;
         const arrUrlPoke = response.results.map(item => item.url);
 
         await Promise.all(arrUrlPoke.map(async url => {
